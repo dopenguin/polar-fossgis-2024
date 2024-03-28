@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>POLAR &#45; FOSSGIS 2024</title>
+  <link rel="icon" href="https://github.com/Dataport/polar/blob/905e6360e1be5d268aa74738526df1b3c0ee3405/pages/assets/iceberg_icon.svg">
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="polarfuchs"></div>
+</body>
+<script type="module">
+  import client from '@polar/client-generic'
+
+  client.createMap({
+    containerId: 'polarfuchs',
+    services: 'https://geodienste.hamburg.de/services-internet.json',
+    enabledPlugins: [
+      'address-search',
+      'pins',
+      'reverse-geocoder',
+      'loading-indicator',
+    ],
+    mapConfiguration: {
+      epsg: "EPSG:25832",
+      layers: [{
+        id: '453',
+        visibility: true,
+        type: 'background',
+      }],
+      stylePath: './node_modules/@polar/client-generic/dist/polar-client.css',
+      addressSearch: {
+        displayComponent: true,
+        addLoading: 'plugin/loadingIndicator/addLoadingKey',
+        removeLoading: 'plugin/loadingIndicator/removeLoadingKey',
+        searchMethods: [{
+          queryParameters: {
+              searchAddress: true,
+              searchStreets: true,
+              searchHouseNumbers: true,
+          },
+          type: 'mpapi',
+          url: 'https://geodienste.hamburg.de/HH_WFS_GAGES?service=WFS&request=GetFeature&version=2.0.0',
+        }],
+      },
+      pins: {
+        coordinateSource: 'plugin/addressSearch/chosenAddress',
+        toZoomLevel: 7,
+        movable: 'drag',
+      },
+      reverseGeocoder: {
+        url: 'https://geodienste.hamburg.de/HH_WPS',
+        addLoading: 'plugin/loadingIndicator/addLoadingKey',
+        removeLoading: 'plugin/loadingIndicator/removeLoadingKey',
+        zoomTo: 7,
+        coordinateSource: 'plugin/pins/transformedCoordinate',
+        addressTarget: 'plugin/addressSearch/selectResult',
+      },
+      loadingIndicator: {
+        displayComponent: true,
+      },
+    },
+  })
+</script>
+</html>

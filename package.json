@@ -1,0 +1,13 @@
+{
+  "name": "polar-fossgis-2024",
+  "description": "This repository contains the code example for the FOSSGIS 2024 talk about POLAR",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@polar/client-generic": "^1.0.0",
+    "vite": "^5.2.6"
+  },
+  "scripts": {
+    "start": "vite"
+  }
+}
