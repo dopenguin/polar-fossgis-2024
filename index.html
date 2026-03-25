@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <title>POLAR &#45; FOSSGIS 2024</title>
+  <title>POLAR &#45; FOSSGIS 2026</title>
   <link rel="icon" href="./iceberg.svg">
   <style>
     html, body {
       padding: 0;
       margin: 0;
+    }
+
+    #polarfuchs {
+      width: 100vw;
+      height: 100vh;
     }
   </style>
 </head>
@@ -15,24 +20,340 @@
 </body>
 <script type="module">
   import client from '@polar/client-generic'
+  const layerId = '1711'
 
   client.createMap({
     containerId: 'polarfuchs',
-    services: 'https://geodienste.hamburg.de/services-internet.json',
-    enabledPlugins: [
-      'address-search',
-      'pins',
-      'reverse-geocoder',
-      'loading-indicator',
-    ],
+    services: [
+      {"id":"1711","name":"Krankenhäuser","url":"https://geodienste.hamburg.de/HH_WFS_Krankenhaeuser","typ":"WFS","featureType":"gesundheit_krankenhaeuser","outputFormat":"XML","version":"1.1.0","featureNS":"https://registry.gdi-de.org/id/de.hh.up","featurePrefix":"de.hh.up","gfiAttributes":{"art_der_stationaeren_versorgung":"Art der stationären Versorgung","traegerschaft":"Trägerschaft","name":"Name","zusatz_einrichtungsname":"Zusatz zur Einrichtung","adresse":"Adresse","ort":"Ort","anmerkung_ort":"Hinweis","homepage":"Link","krankenhausverzeichnis":"Krankenhausverzeichnis","stand":"Stand","not_und_unfallversorgung":"Not- und Unfallversorgung","geburtshilfe":"Geburtshilfe","geburtshilfe_versorgungsstufe":"Geburtshilfe-Versorgungsstufe","planbetten":"Planbetten","teilstationaere_behandlungsplaetze":"Teilstationäre Behandlungsplätze"},"gfiTheme":"default","layerAttribution":"nicht vorhanden","legendURL":"","datasets":[{"md_id":"9329C2CB-4552-4780-B343-0CC847538896","csw_url":"https://metaver.de/csw","show_doc_url":"https://metaver.de/trefferanzeige?cmd=doShowDocument&docuuid=","rs_id":"https://registry.gdi-de.org/id/de.hh/010d7370-5306-4b63-983b-59cdd6e94c3c","md_name":"Krankenhäuser Hamburg","bbox":"461468.96892897453,5916367.229806512,587010.9095989474,5980347.755797674","kategorie_opendata":["Gesundheit"],"kategorie_inspire":["Versorgungswirtschaft und staatliche Dienste"],"kategorie_organisation":"Behörde für Arbeit, Gesundheit, Soziales, Familie und Integration"}],"urlIsVisible":true},
+      {"id":"23420","name":"basemap.de Web Raster Farbe","url":"https://sgx.geodatenzentrum.de/wms_basemapde","typ":"WMS","layers":"de_basemapde_web_raster_farbe","format":"image/png","version":"1.3.0","singleTile":false,"transparent":true,"transparency":0,"urlIsVisible":true,"tilesize":512,"gutter":0,"minScale":"0","maxScale":"2500000","gfiAttributes":"ignore","gfiTheme":"default","layerAttribution":"Quellenvermerk CC BY 4.0: © GeoBasis-DE / BKG (Jahr des letzten Datenbezugs) CC BY 4.0","legendURL":"","cache":false,"featureCount":5,"datasets":[{"md_id":"69264016-D304-4DD6-BCEF-509C1ED19F14","csw_url":"https://mis.bkg.bund.de/csw","show_doc_url":"https://mis.bkg.bund.de/trefferanzeige?docuuid=","rs_id":"https://registry.gdi-de.org/id/de.bund.bkg.csw/055981a6-c6c6-4ea9-a3a3-755999526d2e","md_name":"basemap.de Web Raster Farbe","bbox":"280371.07942808943,5235855.820200145,919932.927285466,6120635.987098161","kategorie_opendata":["Sonstiges"],"kategorie_inspire":["Verwaltungseinheiten","Adressen","Bodenbedeckung","Bodennutzung","Gewässernetz","Gebäude"],"kategorie_organisation":"Arbeitsgemeinschaft der Vermessungsverwaltungen der Länder der Bundesrepublik Deutschland (AdV)"}],"notSupportedFor3DNeu":false},
+      {
+        visibility: false,
+        id: 'xplanwfs',
+        name: 'XPlanSynWFS',
+        url: 'https://hh.xplanungsplattform.de/xplansyn-wfs/services/xplansynwfs',
+        typ: 'WFS',
+        featureType: 'BP_Plan',
+        outputFormat: 'XML',
+        version: '1.1.0',
+        featureNS: 'http://www.opengis.net/gml',
+        layerAttribution: 'nicht vorhanden',
+        legendURL: false,
+        hitTolerance: '',
+        datasets: [],
+        urlIsVisible: true,
+        gfiTheme: 'XPlanGfiTemplate',
+        linkPrefix: 'https://hh-qs.xplanungsplattform.de/xplan-wms',
+        gfiAttributes: {
+          name: 'Name',
+          gmlId: 'Gml Id',
+          gmlName: 'Gml Name',
+          gmlDescription: 'Gml Description',
+          xpVersion: 'xpVersion',
+          xpPlanType: 'xpPlanType',
+          xpPlanName: 'xpPlanName',
+          xplanMgrPlanId: 'xplanMgrPlanId',
+          gueltigkeitBeginn: 'Gültigkeitbeginn',
+          gueltigkeitEnde: 'Gültigkeitsende',
+          wmsSortDate: 'WMS Sorting Date',
+          nummer: 'Nummer',
+          internalId: 'Internal Id',
+          beschreibung: 'Beschreibung',
+          kommentar: 'Kommentar',
+          technHerstellDatum: 'Techn. Herstellungsdatum',
+          genehmigungsDatum: 'Genehmigungsdatum',
+          untergangsDatum: 'Untergangsdatum',
+          aendertPlan: 'Ändert Plan',
+          wurdeGeaendertVonPlan: 'Wurde Geändert von Plan',
+          aendertPlanBereich: 'Ändert Planbereich',
+          wurdeGeaendertVonPlanBereich: 'Wurde Geändert von Planbereich',
+          erstellungsMassstab: 'Erstellungsmaßstab',
+          hoehenbezug: 'Höhenbezug',
+          technischerPlanersteller: 'Technischer Planersteller',
+          verfahrensMerkmale: 'Verfahrensmerkmale',
+          hatGenerAttribut: 'Hat generisches Attribut',
+          externeReferenz: 'Externe Referenz',
+          begruendungsTexte: 'Begründungstexte',
+          gemeinde: 'GEMEINDE!!!',
+          planaufstellendeGemeinde: 'Planaufstellende Gemeinde',
+          plangeber: 'Plangeber',
+          aenderungenBisDatum: 'Aenderungen bis (Datum)',
+          aufstellungsbeschlussDatum: 'Aufstellungsbeschluss (Datum)',
+          veraenderungssperre: 'Veränderungssperre',
+          auslegungsStartDatum: 'Auslegungsstart (Datum)',
+          auslegungsEndDatum: 'Auslegungsende (Datum)',
+          traegerbeteiligungsStartDatum: 'Trägerbeteiligungsstart (Datum)',
+          traegerbeteiligungsEndDatum: 'Trägerbeteiligungsende (Datum)',
+          satzungsbeschlussDatum: 'Satzungsbeschluss (Datum)',
+          rechtsverordnungsDatum: 'Rechtsverordnung (Datum)',
+          inkrafttretensDatum: 'Inkrafttretensdatum',
+          ausfertigungsDatum: 'Ausfertigungsdatum',
+          staedtebaulicherVertrag: 'Städtebaulicher Vertrag',
+          erschliessungsVertrag: 'Erschliessungsvertrag',
+          durchfuehrungsVertrag: 'Durchführungsvertrag',
+          gruenordnungsplan: 'Grünordnungsplan',
+          versionBauNVO: 'Version BauNVO',
+          versionBauGB: 'Version BauGB',
+          versionSonstRechtsgrundlage: 'Version Sonst. Rechtsgrundlage',
+          bereich: 'Bereich',
+          aendert: 'Ändert',
+          wurdeGeaendertVon: 'Wurde Geändert von',
+          veraenderungssperreBeschlussDatum: 'Veränderungssperre Beschlussdatum',
+          veraenderungssperreDatum: 'Veraenderungssperre Datum',
+          veraenderungssperreEndDatum: 'Veränderungssperre EndDatum',
+          versionBauNVODatum: 'Version BauNVO Datum',
+          versionBauNVOText: 'Version BauNVO Text',
+          versionBauGBDatum: 'Version BauGB Datum',
+          versionBauGBText: 'Version BauGB Text',
+          versionSonstRechtsgrundlageDatum: 'Version Sonst. Rechtsgrundlage Datum',
+          versionSonstRechtsgrundlageText: 'Version Sonst. Rechtsgrundlage Text',
+          verlaengerungVeraenderungssperre: 'Verlängerung Veränderungssperre',
+          verlaengerungVeraenderungssperreWert:
+                  'Verlängerung Veränderungssperre Wert',
+          rechtsverbindlich: 'Rechtsverbindlich',
+          informell: 'Informell',
+          refBeschreibung: 'Ref. Beschreibung',
+          refBegruendung: 'Ref. Begruendung',
+          refExternalCodeList: 'Ref. External Code List',
+          refLegende: 'Ref. Legende',
+          refRechtsplan: 'Ref. Rechtsplan',
+          refPlangrundlage: 'Ref. Plangrundlage',
+          refKoordinatenListe: 'Ref. Koordinaten Liste',
+          refGrundstuecksverzeichnis: 'Ref. Grundstücksverzeichnis',
+          refPflanzliste: 'Ref Pflanzliste',
+          refUmweltbericht: 'Ref Umweltbericht',
+          refSatzung: 'Ref Satzung',
+          refGruenordnungsplan: 'Ref Grünordnungsplan',
+          bezugshoehe: 'Bezugshöhe',
+          bezugshoeheUOM: 'Bezugshöhe UOM',
+          planArt: 'Planart',
+          planArtWert: 'Planart (Wert)',
+          sonstPlanArt: 'Sonst. Planart',
+          sonstPlanArtWert: 'Sonst. Planart Wert',
+          verfahren: 'Verfahren',
+          verfahrenWert: 'Verfahren (Wert)',
+          rechtsstand: 'Rechtsstand',
+          rechtsstandWert: 'Rechtsstand (Wert)',
+          status: 'Status',
+          statusWert: 'Status (Wert)',
+          allgArtDerBaulNutzung: 'AllgArtDer*',
+          refs_parsed: 'Refs parsed',
+          planart_parsed: 'Planart combined',
+          gemeinde_parsed: 'GEMEINDE PARSED!',
+          texte: 'Texte',
+          texte_parsed: 'Texte (mod)',
+        },
+        gfiThemeSettings: {
+          inlineSeparator: ' --> ',
+          newLineSeparator: '|',
+          hasRemovedStartEndBrackets: 'true',
+          tabs: [
+            {
+              title: 'Basisdaten',
+              showAttributes: [
+                'texte',
+                'texte_parsed',
+                'gmlId',
+                'name',
+                'nummer',
+                'gemeinde',
+                'gemeinde_parsed',
+                'planart_parsed',
+                'internalId',
+                'beschreibung',
+                'kommentar',
+                'aendert',
+                'wurdeGeaendertVon',
+                'erstellungsMassstab',
+                'bereich',
+                'verfahrensMerkmale',
+                'rechtsverbindlich',
+                'informell',
+                'hatGenerAttribut',
+                'verlaengerungVeraenderungssperre',
+                'verlaengerungVeraenderungssperreWert',
+                'technischerPlanersteller',
+                'planaufstellendeGemeinde',
+                'versionBauNVODatum',
+                'versionBauNVOText',
+                'versionBauGBDatum',
+                'versionBauGBText',
+                'versionSonstRechtsgrundlageDatum',
+                'versionSonstRechtsgrundlageText',
+                '',
+                'beschreibungURL',
+                'begruendungURL',
+                'rechtsplanURL',
+                'liegenschaftskarteURL',
+                'liegenschaftskarteGeorgefURL',
+                '',
+                'legendURL',
+                '',
+                'umweltberichtURL',
+                '',
+                'bezugshoehe',
+                'bezugshoeheUOM',
+                '',
+                'plangeber',
+                'verfahren',
+                '',
+                'verfahrenCode',
+                '',
+                'gruenordnungsplan',
+                '',
+                'gkz',
+                '',
+                'stadt',
+                'ortsteil',
+                '',
+                'rechtsstand',
+                '',
+                'rechtsstandCode',
+                '',
+                'status',
+                '',
+                'statusCode',
+                '',
+                'hoehenbezug',
+                'auslegungsStartDatum',
+                'auslegungsEndDatum',
+                '',
+                'veraenderungssperre',
+                'staedtebaulicherVertrag',
+                'erschliessungsVertrag',
+                'durchfuehrungsVertrag',
+              ],
+              order: 'asc',
+            },
+            {
+              title: 'Zeitangaben',
+              showAttributes: [
+                'gueltigkeitBeginn',
+                'gueltigkeitEnde',
+                'veraenderungssperreDatum',
+                'aufstellungsbeschlussDatum',
+                'aenderungenBisDatum',
+                'traegerbeteiligungsStartDatum',
+                'traegerbeteiligungsEndDatum',
+                'satzungsbeschlussDatum',
+                'rechtsverordnungsDatum',
+                'inkrafttretensDatum',
+                'auslegungsStartDatum',
+                'auslegungsEndDatum',
+                'traegerbeteiligungsStartDatum',
+                'traegerbeteiligungsEndDatum',
+                'ausfertigungsDatum',
+                'veraenderungssperreBeschlussDatum',
+                'veraenderungssperreEndDatum',
+                'technHerstellDatum',
+                'untergangsDatum',
+              ],
+            },
+            {
+              title: 'Referenzen',
+              showAttributes: ['refs_parsed', 'externeReferenz'],
+              order: 'desc',
+            },
+            {
+              title: 'Texte',
+              showAttributes: ['texte_parsed', 'texte'],
+              order: 'desc',
+            },
+            {
+              title: 'Metadaten',
+              showAttributes: [
+                'xpVersion',
+                'xpPlanName',
+                'xpPlanType',
+                'wmsSortDate',
+              ],
+              order: 'desc',
+            },
+            {
+              title: '(all-asc)',
+              showAttributes: 'showAll',
+              order: 'asc',
+            },
+          ],
+          combinedAttributes: {
+            allgArtDerBaulNutzung: [
+              'allgArtDerBaulNutzung',
+              'allgArtDerBaulNutzungWert',
+            ],
+            refs_parsed: ['externeReferenz', 'refBegruendung'],
+            planart_parsed: ['planArtWert', 'planArt'],
+            texte_parsed: ['texte'],
+            gemeinde_parsed: ['gemeinde'],
+          },
+          modifiedValues: {
+            bereich: [
+              {
+                findText: '_',
+                newText: ' # ',
+                flag: 'g',
+              },
+            ],
+            gemeinde: [
+              {
+                findText: '\\|',
+                newText: '+',
+              },
+            ],
+            texte: [
+              {
+                findText: '§(\\d)',
+                newText: '|§$1',
+                flag: 'g',
+              },
+            ],
+            gemeinde_parsed: [
+              {
+                findText: '\\|',
+                newText: ' <-> ',
+              },
+            ],
+          },
+        },
+      },],
     mapConfiguration: {
+      extendedMasterportalapiMarkers: {
+        layers: [layerId],
+        defaultStyle: {
+          stroke: '#FFFFFF',
+          fill: '#005CA9',
+        },
+        hoverStyle: {
+          stroke: '#46688E',
+          fill: '#8BA1B8',
+        },
+        selectionStyle: {
+          stroke: '#FFFFFF',
+          fill: '#E10019',
+        },
+        clusterClickZoom: true,
+        dispatchOnMapSelect: ['plugin/iconMenu/openMenuById', 'gfi'],
+      },
       epsg: "EPSG:25832",
-      layers: [{
-        id: '453',
-        visibility: true,
-        type: 'background',
-      }],
-      stylePath: './node_modules/@polar/client-generic/dist/polar-client.css',
+      layers: [
+        {
+          id: '23420',
+          visibility: true,
+          type: 'background',
+          name: 'example.layers.basemap',
+        },
+        {
+          id: 'xplanwfs',
+          visibility: false,
+          type: 'mask',
+          name: 'example.layers.xplanwfs',
+        },
+        {
+          id: layerId,
+          type: 'mask',
+          name: 'example.layers.krankenhaeuser',
+        },
+      ],
+      stylePath: './node_modules/@polar/client-generic/dist/style.css',
       addressSearch: {
         displayComponent: true,
         addLoading: 'plugin/loadingIndicator/addLoadingKey',
@@ -63,6 +384,158 @@
       loadingIndicator: {
         displayComponent: true,
       },
+      draw: {
+        selectableDrawModes: [
+          'Circle',
+          'LineString',
+          'Point',
+          'Polygon',
+          'Text',
+        ],
+        measureOptions: {
+          metres: true,
+          kilometres: true,
+        },
+        snapTo: ['xplanwfs'],
+        lassos: [
+          {
+            id: 'xplanwfs',
+          },
+        ],
+        textStyle: {
+          font: {
+            size: [10, 20, 30],
+            family: 'Arial',
+          },
+        },
+        style: {
+          fill: { color: 'rgba(255, 255, 255, 0.5)' },
+          stroke: {
+            color: '#e51313',
+            width: 2,
+          },
+          circle: {
+            radius: 7,
+            fillColor: '#e51313',
+          },
+        },
+      },
+      export: {
+        showPng: true,
+        showJpg: false,
+        showPdf: false,
+      },
+      gfi: {
+        mode: 'bboxDot',
+        activeLayerPath: 'plugin/layerChooser/activeMaskIds',
+        renderType: 'iconMenu',
+        featureList: {
+          mode: 'visible',
+          pageLength: 3,
+          text: ['name', 'adresse'],
+          bindWithCoreHoverSelect: true,
+        },
+        layers: {
+          [layerId]: {
+            geometry: false,
+            window: true,
+            properties: {
+              name: 'Name',
+              adresse: 'Street',
+              ort: 'County',
+            },
+            showTooltip: (feature) => [
+              [
+                'h2',
+                feature.get('features').length > 1
+                        ? 'Multiple hospitals'
+                        : feature.get('features')[0].get('name'),
+              ],
+              [
+                'span',
+                feature.get('features').length > 1
+                        ? 'Click to zoom in'
+                        : feature.get('features')[0].get('adresse'),
+              ],
+            ],
+          },
+        },
+      },
+      filter: {
+        layers: {
+          [layerId]: {
+            categories: [
+              {
+                selectAll: true,
+                targetProperty: 'traegerschaft',
+                knownValues: ['privat', 'öffentlich', 'freigemeinnützig'],
+              },
+            ],
+          },
+        },
+      },
+      locales: [
+        {
+          type: 'de',
+          resources: {
+            example: {
+              attributions: {
+                basemap: 'Basemap © basemap.de / BKG <MONTH> <YEAR>',
+                xplanwfs: 'XPlanSynWFS © Freie und Hansestadt Hamburg, Landesbetrieb Geoinformation und Vermessung (LGV)',
+                krankenhaeuser: 'Krankenhäuser © Freie und Hansestadt Hamburg, Landesbetrieb Geoinformation und Vermessung (LGV)',
+              },
+              layers: {
+                basemap: 'Basemap.de (Coloured)',
+                xplanwfs: 'XPlanSynWFS',
+                krankenhaeuser: 'Krankenhäuser',
+              },
+            },
+          },
+        },
+      ],
+      attributions: {
+        initiallyOpen: false,
+        listenToChanges: [
+          'plugin/layerChooser/activeBackgroundId',
+          'plugin/layerChooser/activeMaskIds',
+        ],
+        windowWidth: 300,
+        layerAttributions: [
+          {
+            id: '23420',
+            title: 'example.attributions.basemap',
+          },
+          {
+            id: 'xplanwfs',
+            title: 'example.attributions.xplanwfs',
+          },
+          {
+            id: layerId,
+            title: 'example.attributions.krankenhaeuser',
+          },
+        ],
+      },
+    },
+    enabledPlugins: [
+      'address-search',
+      'pins',
+      'reverse-geocoder',
+      'loading-indicator',
+      'pointer-position',
+      'draw',
+      'export',
+      'icon-menu',
+      'toast',
+      'filter',
+      'gfi',
+      'attributions',
+      'layer-chooser',
+      'legend',
+      'fullscreen',
+    ],
+    modifyLayerConfiguration: (layerConf) => {
+      layerConf.find((entry) => entry.id === layerId).clusterDistance = 40
+      return layerConf
     },
   })
 </script>
