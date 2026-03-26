@@ -484,6 +484,25 @@
         {
           type: 'de',
           resources: {
+            plugins: {
+              filter: {
+                layerName: {
+                  1711: 'Krankenhäuser'
+                },
+                category: {
+                  1711: {
+                    title: {
+                      traegerschaft: 'Trägerschaft'
+                    },
+                    traegerschaft: {
+                      privat: 'Privat',
+                      öffentlich: 'Öffentlich',
+                      freigemeinnützig: 'Freigemeinnützig'
+                    }
+                  }
+                }
+              }
+            },
             example: {
               attributions: {
                 basemap: 'Basemap © basemap.de / BKG <MONTH> <YEAR>',
